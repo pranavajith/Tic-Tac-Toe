@@ -8,13 +8,14 @@ const lines = [
     [0, 4, 8],
     [2, 4, 6],
   ];
-
-export default function Winner(squares){
-    for (let i = 0; i < lines.length; i++){
-        let a = lines[i][0];
-        let b = lines[i][1];
-        let c = lines[i][2];
-        if (squares[a] != '-' && squares[a] == squares[b] && squares[a] == squares[c]) return squares[a];
+  
+  export default function calculateWinner(squares) {
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if (squares[a] !== '-' && squares[a] === squares[b] && squares[a] === squares[c]) {
+        return squares[a];
+      }
     }
     return null;
-}
+  }
+  

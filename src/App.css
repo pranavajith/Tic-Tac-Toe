@@ -55,3 +55,19 @@
   outline: none; /* Remove default outline on focus and active */
   box-shadow: none; /* Remove any box-shadow applied by default */
 }
+
+/* Ensure that the body takes up the full height of the viewport */
+body {
+  margin: 0; /* Remove default body margin */
+  height: 100vh; /* Full viewport height */
+  display: flex; /* Flexbox for centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  background-color: #f0f0f0; /* Optional: Set a background color */
+}
+
+/* Center the Board component and add margin */
+.board-container {
+  margin: 20px; /* Adjust margin as needed */
+}
+

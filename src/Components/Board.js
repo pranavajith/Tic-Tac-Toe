@@ -1,27 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Square from './Square';
-import Winner from './Winner';
-
+import calculateWinner from './Winner'; // Import the function
 
 export default function Board() {
   const [squares, setSquares] = useState(Array(9).fill('-'));
   const [turn, setTurn] = useState(true);
+  const [gameState, setGameState] = useState(null);
 
   function handleClick(i) {
-    if (squares[i] != '-' || Winner(squares)) return;
+    if (squares[i] !== '-' || gameState) return;
     const nextSquares = squares.slice();
-    if (turn) nextSquares[i] = "X";
-    else nextSquares[i] = "O";
-    setTurn(!turn);
+    nextSquares[i] = turn ? 'X' : 'O';
     setSquares(nextSquares);
+    setTurn(!turn);
   }
 
+  useEffect(() => {
+    const winner = calculateWinner(squares);
+    if (winner) {
+      setGameState(winner);
+    }
+  }, [squares]);
+
+  const winner = gameState || calculateWinner(squares);
   let status;
-    if (Winner(squares)) status = 'Winner: ' + Winner(squares);
-    else status = 'Next Player : ' + (turn ? 'X' : 'O');
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next Player: ' + (turn ? 'X' : 'O');
+  }
+
   return (
     <>
-    <div>{status}</div>
+      <div>{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
